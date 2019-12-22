@@ -28,8 +28,10 @@ class App extends Component{
   state = {...initalState}
 
   addDigit = displayValue => {
+    let dv = String(this.state.displayValue)
+    if(displayValue == '.' && dv.includes('.')) return
     if(this.displayValue == 0 || this.state.clear) this.setState({displayValue: '' + displayValue })
-    else if(this.state.displayValue != 0) displayValue = this.state.displayValue + displayValue 
+    else if(dv != 0) displayValue = dv + displayValue 
 
     this.setState({displayValue, clear:0})
   }
@@ -44,7 +46,7 @@ class App extends Component{
       if(operation == '=') return
       values[this.state.current] = this.state.displayValue
       console.log(values)
-      this.setState({values:values, current:1, operation:operation, clear: 1 })
+      this.setState({values, current:1, operation, clear: 1 })
     }else{
       values[1] = this.state.displayValue
       console.log(values)
@@ -59,7 +61,7 @@ class App extends Component{
         current = 0  
       }
       console.log(values)
-      this.setState({values:values, operation:operation, displayValue:values[0], current:current, clear: 1})
+      this.setState({values, operation, displayValue:values[0], current, clear: 1})
     }
   }
 
